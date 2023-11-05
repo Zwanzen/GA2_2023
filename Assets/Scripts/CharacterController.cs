@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 
 public class CharacterController : MonoBehaviour
 {
@@ -32,6 +32,22 @@ public class CharacterController : MonoBehaviour
     [SerializeField]
     private float checkerRadius = 1f;
 
+    [Space(20)]
+    [Header("Camera Variables")]
+    [SerializeField]
+    private Transform targetTransform;
+    [SerializeField]
+    private Transform cameraPivotTransform;
+    [SerializeField]
+    private float followSpeed = 1.0f;
+    [SerializeField]
+    private float pivotSpeed = 1f;
+    [SerializeField]
+    private float lookSpeed = 1f;
+
+    public float lookAngle;
+    private float pivotAngle;
+
     [HideInInspector]
     public Rigidbody rb;
     public Transform cameraHolder;
@@ -43,11 +59,15 @@ public class CharacterController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void Update()
     {
+        FollowPlayer();
+        HandleRotation();
     }
 
     public void LateUpdate()
@@ -169,6 +189,38 @@ public class CharacterController : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void FollowPlayer()
+    {
+        Vector3 targetPosition = Vector3.Lerp(transform.position, targetTransform.position, Time.deltaTime / followSpeed);
+        transform.position = targetPosition;
+    }
+
+    private Vector3 MouseInputVector()
+    {
+        var mouseY = Input.GetAxis("Mouse Y");
+        var mouseX = Input.GetAxis("Mouse X");
+
+        return new Vector3(mouseX, mouseY, 0);
+    }
+
+    private void HandleRotation()
+    {
+        lookAngle += (MouseInputVector().x * lookSpeed);
+        pivotAngle -= (MouseInputVector().y * pivotSpeed);
+        pivotAngle = Mathf.Clamp(pivotAngle, -90, 90);
+
+        Vector3 rotation = Vector3.zero;
+        rotation.y = lookAngle;
+        Quaternion targetRotation = Quaternion.Euler(rotation);
+        transform.rotation = targetRotation;
+
+        rotation = Vector3.zero;
+        rotation.x = pivotAngle;
+
+        targetRotation = Quaternion.Euler(rotation);
+        cameraPivotTransform.localRotation = targetRotation;
     }
 
     private void OnDrawGizmos()

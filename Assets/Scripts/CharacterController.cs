@@ -95,11 +95,7 @@ public class CharacterController : MonoBehaviour
         //get vel
         Vector3 rbVel = new Vector3(rb.velocity.x, 0, rb.velocity.z);
 
-        //orientate based on camera
-        //moveDir = Quaternion.AngleAxis(cameraHolder.rotation.eulerAngles.y, Vector3.up) * moveDir;
-
         moveDir = Quaternion.AngleAxis(cameraHolder.rotation.eulerAngles.y, Vector3.up) * moveDir;
-
 
         //if move, counter vel for better control
         if (MoveVector().normalized.magnitude <= 1 && Vector3.Dot(moveDir, rbVel) > 0.2f)
@@ -113,11 +109,10 @@ public class CharacterController : MonoBehaviour
         //get vel based on dir
         dirVel = Vector3.Dot(rbVel, moveDir);
 
-        //ADD COUNTER FORCE IF BHOP---------------------------------------------------------------------------------Later
-
         //Project onto normal
         moveDir = Vector3.ProjectOnPlane(moveDir, GetSurfaceNormal());
 
+        //Store something for later
         dir = moveDir;
 
         //decide if i can apply force in air vs grounded
@@ -227,6 +222,14 @@ public class CharacterController : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
 
-        Gizmos.DrawSphere(transform.position + checkerPosition, checkerRadius);
+        //Gizmos.DrawSphere(transform.position + checkerPosition, checkerRadius);
+
+        Gizmos.DrawLine(transform.position, transform.position + rb.velocity);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + dir * 1.5f);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + MoveVector().normalized * 1.5f);
     }
 }

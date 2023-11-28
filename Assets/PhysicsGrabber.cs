@@ -73,7 +73,12 @@ public class PhysicsGrabber : MonoBehaviour
             Drop();
         }
 
-        if(grabbing)
+
+    }
+
+    private void FixedUpdate()
+    {
+        if (grabbing)
         {
             Holding();
         }

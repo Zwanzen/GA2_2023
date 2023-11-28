@@ -96,7 +96,10 @@ public class PhysicsGrabber : MonoBehaviour
         HoldPos = transform.position + transform.forward * GrabLenght;
         var moveDir = HoldPos - rb.transform.position;
 
-        var force = Vector3.Distance(rb.position, HoldPos) * 10;
+        float force = Vector3.Distance(rb.position, HoldPos) * 30f;
+        //force = Mathf.Clamp(force, 5f, 30f);
+        Debug.Log(force);
+
 
         rb.AddForce(moveDir.normalized * force);
         var toRotation = Quaternion.FromToRotation(rb.rotation.eulerAngles, Vector3.zero);

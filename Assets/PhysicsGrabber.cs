@@ -16,10 +16,24 @@ public class PhysicsGrabber : MonoBehaviour
     public bool grabbing = false;
     Rigidbody rb;
 
-    public Transform lookingAtTransform;
     Outline outlineComponent;
     public LineRenderer grabLR;
     public Material LRMaterial;
+
+    [Header("Spring Joint Configurations")]
+    [SerializeField]
+    private float springForce = 50f;
+    [SerializeField]
+    private float damper = 1f;
+    [SerializeField]
+    private float minDist = 0.1f;
+    [SerializeField]
+    private float maxDist = 1f;
+    [SerializeField]
+    private float tolarance = 0.02f;
+
+
+    public Transform lookedAtTransform;
 
     private void Start()
     {
@@ -28,52 +42,9 @@ public class PhysicsGrabber : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit hit1;
-        if (Physics.Raycast(transform.position, transform.forward, out hit1, GrabLenght, GrabLayer) && !grabbing)
-        {
-            if(lookingAtTransform != null && lookingAtTransform != hit1.transform)
-            {
-                lookingAtTransform.GetComponent<Outline>().enabled = false;
-                lookingAtTransform = null;
-            }
-            lookingAtTransform = hit1.transform;
-            if(lookingAtTransform.GetComponent<Outline>() != null )
-            {
-                lookingAtTransform.GetComponent<Outline>().enabled = true;
+        HandleOutline();
 
-            }
-            else
-            {
-                lookingAtTransform.AddComponent<Outline>();
-                var to = lookingAtTransform.GetComponent<Outline>();
-                to.OutlineColor = outlineComponent.OutlineColor;
-                to.OutlineWidth = outlineComponent.OutlineWidth;
-                to.OutlineMode = outlineComponent.OutlineMode;
-            }
-        }
-        else if(!grabbing)
-        {
-            if(lookingAtTransform != null)
-            {
-                lookingAtTransform.GetComponent<Outline>().enabled = false;
-                lookingAtTransform = null;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if(lookingAtTransform != null)
-            {
-                Grab(lookingAtTransform);
-            }
-        }
-
-        if(grabbing && Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            Drop();
-        }
-
-
+        HandleGrabInput();
     }
 
     private void FixedUpdate()
@@ -85,6 +56,93 @@ public class PhysicsGrabber : MonoBehaviour
         else
         {
             grabLR.enabled = false;
+        }
+    }
+
+    private void HandleGrabInput()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            if (lookedAtTransform != null)
+            {
+                Grab(lookedAtTransform);
+            }
+        }
+
+        if (grabbing && Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            Drop();
+        }
+    }
+
+    private Transform LookingAtTransform()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, GrabLenght, GrabLayer))
+        {
+            return hit.transform;
+        }
+        else
+        {
+            return null;
+
+        }
+    }
+
+    private void EnableOutline(Transform transform)
+    {
+        //If transform dont have an outline component, add it, then fix the settings.
+        if(transform.GetComponent<Outline>() == null)
+        {
+            var newOutline = transform.AddComponent<Outline>();
+            newOutline.OutlineColor = outlineComponent.OutlineColor;
+            newOutline.OutlineWidth = outlineComponent.OutlineWidth;
+            newOutline.OutlineMode = outlineComponent.OutlineMode;
+        }
+
+        //Enable the outline, and store the transform to be turned off later.
+        transform.GetComponent<Outline>().enabled = true;
+        lookedAtTransform = transform;
+    }
+
+    private void DisableOutline(Transform transform)
+    {
+        //Dont need to check if it has outline component, since every transform inputted here has to have had it.
+        transform.GetComponent<Outline>().enabled = false;
+        lookedAtTransform = null;
+    }
+
+    private void HandleOutline()
+    {
+        //If im currently grabbing an object, i want only the grabbed object to get an outline.
+        if(grabbing)
+        {
+            return;
+        }
+
+        //If im looking at a new transform, handle outline.
+        if(LookingAtTransform() != null)
+        {
+            //If there was a previous object, check if the new object is the same.
+            if (lookedAtTransform != null)
+            {
+                //if it's the same, do nothing, if it's a new object, remove the last object's outline, and add outline on the new object.
+                if (LookingAtTransform() != lookedAtTransform)
+                {
+                    DisableOutline(lookedAtTransform);
+                    EnableOutline(LookingAtTransform());
+                }
+            }
+            else
+            {
+                //If no previous object, enable the new objects outline.
+                EnableOutline(LookingAtTransform());
+            }
+        }
+        //If im not looking at anything, remove previous outlines if there were any.
+        else if(lookedAtTransform != null)
+        {
+            DisableOutline(lookedAtTransform);
         }
     }
 
@@ -102,8 +160,6 @@ public class PhysicsGrabber : MonoBehaviour
         var moveDir = HoldPos - rb.transform.position;
 
         float force = Vector3.Distance(rb.position, HoldPos) * 30f;
-        //force = Mathf.Clamp(force, 5f, 30f);
-        Debug.Log(force);
 
 
         rb.AddForce(moveDir.normalized * force);
@@ -133,6 +189,11 @@ public class PhysicsGrabber : MonoBehaviour
         rb.drag = 0f;
         rb.angularDrag = 0.1f;
         grabbing = false;
+
+    }
+
+    private void AddSpringJoint(Transform obj)
+    {
 
     }
 }

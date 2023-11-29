@@ -70,7 +70,7 @@ public class TestFluidChamberController : MonoBehaviour
             //If capsule in machine, and im grabbing it, check dist to se if im dragging it out
             if(hasCapsule)
             {
-                if (Capsule == player.lookingAtTransform)
+                if (Capsule == player.lookedAtTransform)
                 {
                     canTake = CheckDistTake();
                 }
@@ -123,7 +123,7 @@ public class TestFluidChamberController : MonoBehaviour
 
         if(other.tag == "Capsule" && !hasCapsule && player.grabbing && canTake)
         {
-            if (player.lookingAtTransform == other.transform)
+            if (player.lookedAtTransform == other.transform)
             {
                 GrabCapsule(other);
             }

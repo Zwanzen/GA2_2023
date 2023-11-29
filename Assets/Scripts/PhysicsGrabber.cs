@@ -9,6 +9,9 @@ using static UnityEngine.GraphicsBuffer;
 public class PhysicsGrabber : MonoBehaviour
 {
     public LayerMask GrabLayer;
+    public LayerMask CablebLayer;
+    public LayerMask ConnectorLayer;
+
     public float GrabLenght = 1f;
     public Vector3 HoldPos;
 
@@ -34,6 +37,11 @@ public class PhysicsGrabber : MonoBehaviour
     public Transform lookedAtTransform;
     private SpringJoint joint;
     private Vector3 grabOffset = Vector3.zero;
+
+    private float ConnectorCheckDist = 0.2f;
+    private float ConnectorDist;
+    private WallConnecter ClosestConnector;
+    private WallConnecter ClosestConnector_;
 
     private void Start()
     {
@@ -63,6 +71,10 @@ public class PhysicsGrabber : MonoBehaviour
         if (grabbing && !Input.GetKey(KeyCode.Mouse0))
         {
             Drop();
+
+            //good place to remove this ref
+            ClosestConnector = null;
+            ClosestConnector_ = null;
         }
     }
 
@@ -158,20 +170,97 @@ public class PhysicsGrabber : MonoBehaviour
 
     void Holding()
     {
-
         if (grabbing)
         {
-            HoldPos = transform.position + transform.forward * GrabLenght;
-            joint.connectedAnchor = HoldPos;
+            if(rb.tag != "Cable")
+            {
+
+                HoldPos = transform.position + transform.forward * GrabLenght;
+                joint.connectedAnchor = HoldPos;
+
+                //Rotate the object to align.
+                Quaternion toRotation = Quaternion.FromToRotation(rb.transform.forward, transform.forward);
+
+                // Apply rotation gradually using Lerp
+                rb.MoveRotation(Quaternion.Lerp(rb.rotation, toRotation * rb.rotation, rotationSpeed * Time.fixedDeltaTime));
+            }
+            else
+            {
+                RaycastHit hit;
+                if(Physics.Raycast(transform.position, transform.forward, out hit, GrabLenght, CablebLayer))
+                {
+                    HoldPos = hit.point - transform.forward * 0.3f;
+                }
+                else
+                {
+                    HoldPos = transform.position + transform.forward * GrabLenght;
+                }
+
+                CheckForCableConnections();
+                if(ClosestConnector_ != null)
+                {
+
+                    if (ClosestConnector != ClosestConnector_ && ClosestConnector != null)
+                    {
+                        ClosestConnector.RemoveCable();
+                    }
+
+                    ClosestConnector = ClosestConnector_;
+                    ClosestConnector.ApplyCable(rb.transform);
+
+                }
+                else
+                {
+                    joint.connectedAnchor = HoldPos;
+                }
+
+
+            }
 
             //Because unity has some bugs, i cant let the object you're holding stand still, so i apply some movement at all times.
             rb.AddForce(Vector3.up * 0.1f * Time.deltaTime);
+        }
+    }
 
-            //Rotate the object to align.
-            Quaternion toRotation = Quaternion.FromToRotation(rb.transform.forward, transform.forward);
+    private void CheckForCableConnections()
+    {
+        Collider[] connectors = Physics.OverlapSphere(HoldPos, ConnectorCheckDist, ConnectorLayer);
 
-            // Apply rotation gradually using Lerp
-            rb.MoveRotation(Quaternion.Lerp(rb.rotation, toRotation * rb.rotation, rotationSpeed * Time.fixedDeltaTime));
+        if(connectors.Length > 0 )
+        {
+            foreach(Collider con in connectors)
+            {
+                float dist = Vector3.Distance(HoldPos, con.transform.position);
+                WallConnecter wallConnecter = con.GetComponent<WallConnecter>();
+                if (wallConnecter.HasCable)
+                {
+                    if(wallConnecter.Cable != rb.transform)
+                    {
+                        return;
+                    }
+                }
+
+                if (ClosestConnector_ == null)
+                {
+                    ClosestConnector_ = wallConnecter;
+                    ConnectorDist = dist;
+                }
+                else if(ConnectorDist > dist)
+                {
+                    ClosestConnector_ = wallConnecter;
+                    ConnectorDist = dist;
+                }
+            }
+        }
+        else
+        {
+            if(ClosestConnector != null)
+            {
+                ClosestConnector.RemoveCable();
+                ClosestConnector = null;
+            }
+            ClosestConnector_ = null;
+            ConnectorDist = 0;
         }
     }
 
@@ -208,16 +297,12 @@ public class PhysicsGrabber : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
+        Gizmos.color = new Color(255f, 0, 0, 0.2f);
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, GrabLayer) && Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKey(KeyCode.Mouse0))
         {
-            Gizmos.DrawSphere(hit.point, 0.05f);
+            Gizmos.DrawWireSphere(HoldPos, ConnectorCheckDist);
         }
 
-        Gizmos.color= Color.green;
-
-        Gizmos.DrawSphere(grabOffset + HoldPos, 0.01f);
     }
 }

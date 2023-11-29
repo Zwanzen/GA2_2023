@@ -207,7 +207,7 @@ namespace HPhysic
         private void Update()
         {
             float cableLength = 0f;
-            bool isConnected = startConnector.IsConnected || endConnector.IsConnected;
+            bool isConnected = true;
 
             int numOfParts = connectors.Count;
             Transform lastPoint = points[0];
@@ -232,6 +232,7 @@ namespace HPhysic
                 lastPoint = nextPoint;
             }
 
+            /*
             if (isConnected)
             {
                 if (cableLength > brakeLength)
@@ -249,6 +250,7 @@ namespace HPhysic
                     timeToBrake = minBrakeTime;
                 }
             }
+            */
         }
 
         private Vector3 CountConPos(Vector3 start, Vector3 end) => (start + end) / 2f;

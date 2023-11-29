@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
 public class PhysicsGrabber : MonoBehaviour
 {
-
     public LayerMask GrabLayer;
     public float GrabLenght = 1f;
     public Vector3 HoldPos;
 
-    float rotationSpeed = 0.5f;
+    public float rotationSpeed = 0.5f;
     public bool grabbing = false;
     Rigidbody rb;
 
     Outline outlineComponent;
-    public LineRenderer grabLR;
-    public Material LRMaterial;
 
     [Header("Spring Joint Configurations")]
     [SerializeField]
@@ -34,6 +32,8 @@ public class PhysicsGrabber : MonoBehaviour
 
 
     public Transform lookedAtTransform;
+    private SpringJoint joint;
+    private Vector3 grabOffset = Vector3.zero;
 
     private void Start()
     {
@@ -45,31 +45,22 @@ public class PhysicsGrabber : MonoBehaviour
         HandleOutline();
 
         HandleGrabInput();
-    }
 
-    private void FixedUpdate()
-    {
-        if (grabbing)
-        {
-            Holding();
-        }
-        else
-        {
-            grabLR.enabled = false;
-        }
+        Holding();
+
     }
 
     private void HandleGrabInput()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            if (lookedAtTransform != null)
+            if (lookedAtTransform != null && !grabbing)
             {
                 Grab(lookedAtTransform);
             }
         }
 
-        if (grabbing && Input.GetKeyUp(KeyCode.Mouse0))
+        if (grabbing && !Input.GetKey(KeyCode.Mouse0))
         {
             Drop();
         }
@@ -148,39 +139,39 @@ public class PhysicsGrabber : MonoBehaviour
 
     private void Grab(Transform obj)
     {
-        grabbing = true;
         rb = obj.GetComponent<Rigidbody>();
         rb.drag = 5;
-        rb.angularDrag = 1f;
+        rb.angularDrag = 5f;
+        //GetGrabOffset();
+        AddSpringJoint(obj);
+        grabbing = true;
+    }
+
+    private void GetGrabOffset()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, GrabLenght, GrabLayer))
+        {
+             grabOffset = hit.point;
+        }
     }
 
     void Holding()
     {
-        HoldPos = transform.position + transform.forward * GrabLenght;
-        var moveDir = HoldPos - rb.transform.position;
 
-        float force = Vector3.Distance(rb.position, HoldPos) * 30f;
-
-
-        rb.AddForce(moveDir.normalized * force);
-        var toRotation = Quaternion.FromToRotation(rb.rotation.eulerAngles, Vector3.zero);
-        rb.MoveRotation(Quaternion.Lerp(rb.rotation, toRotation, rotationSpeed * Time.deltaTime));
-
-        grabLR.enabled = true;
-        grabLR.SetPosition(0,HoldPos);
-        grabLR.SetPosition(1, rb.position);
-
-        float dist = Vector3.Distance(HoldPos, rb.position);
-        float t = Mathf.Clamp01(dist / GrabLenght); // Ensure t is between 0 and 1
-        Color color = Color.Lerp(Color.green, Color.red, t);
-        LRMaterial.color = color;
-
-        float w = Mathf.Lerp(0.05f, 0.005f, t);
-        grabLR.startWidth = w;
-
-        if (dist > GrabLenght)
+        if (grabbing)
         {
-            Drop();
+            HoldPos = transform.position + transform.forward * GrabLenght;
+            joint.connectedAnchor = HoldPos;
+
+            //Because unity has some bugs, i cant let the object you're holding stand still, so i apply some movement at all times.
+            rb.AddForce(Vector3.up * 0.1f * Time.deltaTime);
+
+            //Rotate the object to align.
+            Quaternion toRotation = Quaternion.FromToRotation(rb.transform.forward, transform.forward);
+
+            // Apply rotation gradually using Lerp
+            rb.MoveRotation(Quaternion.Lerp(rb.rotation, toRotation * rb.rotation, rotationSpeed * Time.fixedDeltaTime));
         }
     }
 
@@ -188,12 +179,45 @@ public class PhysicsGrabber : MonoBehaviour
     {
         rb.drag = 0f;
         rb.angularDrag = 0.1f;
+        RemoveSpringJoint(rb.transform);
         grabbing = false;
 
     }
 
     private void AddSpringJoint(Transform obj)
     {
+        //Add springjoint and all its variables
+        joint = obj.AddComponent<SpringJoint>();
 
+        joint.spring = springForce;
+        joint.damper = damper;
+        joint.minDistance = minDist;
+        joint.maxDistance = maxDist;
+        joint.tolerance = tolarance;
+
+        joint.autoConfigureConnectedAnchor = false;
+        joint.anchor = grabOffset;
+    }
+
+    private void RemoveSpringJoint(Transform obj)
+    {
+        Destroy(obj.GetComponent<SpringJoint>());
+        grabOffset = Vector3.zero;
+        joint = null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity, GrabLayer) && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            Gizmos.DrawSphere(hit.point, 0.05f);
+        }
+
+        Gizmos.color= Color.green;
+
+        Gizmos.DrawSphere(grabOffset + HoldPos, 0.01f);
     }
 }

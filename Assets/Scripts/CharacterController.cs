@@ -220,6 +220,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        /*
         Gizmos.color = Color.yellow;
 
         //Gizmos.DrawSphere(transform.position + checkerPosition, checkerRadius);
@@ -231,5 +232,6 @@ public class CharacterController : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + MoveVector().normalized * 1.5f);
+        */
     }
 }

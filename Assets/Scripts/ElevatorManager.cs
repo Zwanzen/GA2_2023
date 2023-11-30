@@ -95,19 +95,18 @@ public class ElevatorManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag != "Ignore")
         {
+            other.transform.SetParent(null);
         }
-        other.transform.SetParent(transform);
-
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag != "Ignore")
         {
+            other.transform.SetParent(null);
         }
-        other.transform.SetParent(null);
 
     }
 }

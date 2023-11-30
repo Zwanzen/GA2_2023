@@ -8,6 +8,7 @@ TagManager:
   - Cable
   - Interactable
   - ElevatorManager
+  - Ignore
   layers:
   - Default
   - TransparentFX

@@ -8648,6 +8648,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4123014385140127706, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator Shaft Door Bottom
+      objectReference: {fileID: 0}
     - target: {fileID: -4101838630620710777, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_IsActive
@@ -9468,6 +9473,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -1451327804455647886, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator Shaft Door Bottom
+      objectReference: {fileID: 0}
     - target: {fileID: -1450754849694829157, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Type
@@ -9502,6 +9512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Shadows.m_Type
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1436716762761219090, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator Shaft Door Bottom
       objectReference: {fileID: 0}
     - target: {fileID: -1429149104563473383, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
@@ -10867,6 +10882,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2235317502479493942, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator Shaft Door Top
+      objectReference: {fileID: 0}
     - target: {fileID: 2240485261363342984, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Layer
@@ -11882,6 +11902,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
+    - target: {fileID: 5790859766985712206, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator Shaft Door Top
+      objectReference: {fileID: 0}
     - target: {fileID: 5870318611079512616, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Type
@@ -12786,6 +12811,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Shadows.m_Type
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8642256330248934235, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      propertyPath: m_Name
+      value: Elevator Shaft Door Top
       objectReference: {fileID: 0}
     - target: {fileID: 8650349671761435178, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}

@@ -10,7 +10,6 @@ public class PhysicsGrabber : MonoBehaviour
 {
     public LayerMask GrabLayer;
     public LayerMask CablebLayer;
-    public LayerMask InteractLayer;
     public LayerMask ConnectorLayer;
 
     public float GrabLenght = 1f;
@@ -34,7 +33,6 @@ public class PhysicsGrabber : MonoBehaviour
     private float maxDist = 1f;
     [SerializeField]
     private float tolarance = 0.02f;
-
 
     public Transform lookedAtTransform;
     private SpringJoint joint;
@@ -62,17 +60,15 @@ public class PhysicsGrabber : MonoBehaviour
 
     private void HandleGrabInput()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && lookedAtTransform != null)
+        if (Input.GetKeyDown(KeyCode.Mouse0) && lookedAtTransform != null && !grabbing)
         {
-
-            if (!grabbing && lookedAtTransform.gameObject.layer != InteractLayer)
+            if (lookedAtTransform.tag != "Interactable")
             {
                 Grab(lookedAtTransform);
             }
             else
             {
-                //Interact with interact manager
-                //lookedAtTransform.GetComponent<>
+                lookedAtTransform.GetComponent<InteractableManager>().Interact();
             }
         }
 

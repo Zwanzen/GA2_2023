@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Capsule
   - Cable
+  - Interactable
+  - ElevatorManager
   layers:
   - Default
   - TransparentFX

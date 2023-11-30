@@ -36,6 +36,7 @@ public class ElevatorManager : MonoBehaviour
             destination = elevatorDestinations[story - 1].position;
             previousDestination = elevator.position;
             t = 0f;
+            elevatorTimer = 0f;
             canMove = false;
         }
     }
@@ -97,7 +98,7 @@ public class ElevatorManager : MonoBehaviour
     {
         if (other.tag != "Ignore")
         {
-            other.transform.SetParent(null);
+            other.transform.SetParent(elevator);
         }
     }
 

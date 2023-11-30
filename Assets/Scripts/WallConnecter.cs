@@ -8,20 +8,31 @@ public class WallConnecter : MonoBehaviour
 {
     [Header("Cable")]
     public Transform Cable;
+    private Rigidbody rb;
     [SerializeField]private Transform cableOffset;
     public bool HasCable;
+    private ConnectionColor.CableColor wallConnectorColor;
+    public bool IsPowered = false;
 
     private float t;
     private float cableSpeed = 5f;
     private Vector3 oldPos;
     private quaternion startRot;
 
+    private void Start()
+    {
+        if (Cable !=  null)
+        {
+            ApplyCable(Cable);
+        }
+
+        wallConnectorColor = GetComponent<ConnectionColor>().ConnectionColor_;
+    }
+
     private void Update()
     {
         if (HasCable)
         {
-            var rb = Cable.GetComponent<Rigidbody>();
-
             if (oldPos == Vector3.zero)
             {
                 oldPos = rb.transform.position;
@@ -42,22 +53,23 @@ public class WallConnecter : MonoBehaviour
 
     public void ApplyCable(Transform Cable_)
     {
-        HasCable = true;
         Cable = Cable_;
-        KinemaCable(true);
-        
+        rb = Cable.GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+        HasCable = true;
+
+        if(Cable.GetComponent<ConnectionColor>().ConnectionColor_ == wallConnectorColor)
+        {
+            IsPowered = true;
+        }
     }
 
     public void RemoveCable()
     {
-        KinemaCable(false);
+        rb.isKinematic = false;
         HasCable = false;
         Cable = null;
-    }
-
-    void KinemaCable(bool b)
-    {
-        var rb = Cable.GetComponent<Rigidbody>();
-        rb.isKinematic = b;
+        rb = null;
+        IsPowered = false;
     }
 }

@@ -3,7 +3,12 @@ guid: 723bc06b9dd9b894f8a23e86acf5ee0e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fluid X Tubes
+    second: {fileID: 2100000, guid: 2ea09014959a8334d8c4e0868df86ce6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

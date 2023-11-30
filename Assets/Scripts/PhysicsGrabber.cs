@@ -10,6 +10,7 @@ public class PhysicsGrabber : MonoBehaviour
 {
     public LayerMask GrabLayer;
     public LayerMask CablebLayer;
+    public LayerMask InteractLayer;
     public LayerMask ConnectorLayer;
 
     public float GrabLenght = 1f;
@@ -18,6 +19,7 @@ public class PhysicsGrabber : MonoBehaviour
     public float rotationSpeed = 0.5f;
     public bool grabbing = false;
     Rigidbody rb;
+    Cable cableBeingHeld;
 
     Outline outlineComponent;
 
@@ -60,11 +62,17 @@ public class PhysicsGrabber : MonoBehaviour
 
     private void HandleGrabInput()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0) && lookedAtTransform != null)
         {
-            if (lookedAtTransform != null && !grabbing)
+
+            if (!grabbing && lookedAtTransform.gameObject.layer != InteractLayer)
             {
                 Grab(lookedAtTransform);
+            }
+            else
+            {
+                //Interact with interact manager
+                //lookedAtTransform.GetComponent<>
             }
         }
 
@@ -157,6 +165,16 @@ public class PhysicsGrabber : MonoBehaviour
         //GetGrabOffset();
         AddSpringJoint(obj);
         grabbing = true;
+        if (rb.tag == "Cable")
+        {
+            cableBeingHeld = rb.GetComponent<Cable>();
+            if(!cableBeingHeld.IsGrabable)
+            {
+                Drop();
+                return;
+            }
+            cableBeingHeld.IsGrabbed = true;
+        }
     }
 
     private void GetGrabOffset()
@@ -224,7 +242,7 @@ public class PhysicsGrabber : MonoBehaviour
 
     private void CheckForCableConnections()
     {
-        Collider[] connectors = Physics.OverlapSphere(HoldPos, ConnectorCheckDist, ConnectorLayer);
+        Collider[] connectors = Physics.OverlapSphere(HoldPos + transform.forward * 0.3f, ConnectorCheckDist, ConnectorLayer);
 
         if(connectors.Length > 0 )
         {
@@ -270,6 +288,11 @@ public class PhysicsGrabber : MonoBehaviour
         rb.angularDrag = 0.1f;
         RemoveSpringJoint(rb.transform);
         grabbing = false;
+        if(cableBeingHeld != null)
+        {
+            cableBeingHeld.IsGrabbed = false;
+            cableBeingHeld = null;
+        }
 
     }
 

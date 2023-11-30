@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7896937745111772274, guid: 723bc06b9dd9b894f8a23e86acf5ee0e, type: 3}
+  - {fileID: 2100000, guid: 2ea09014959a8334d8c4e0868df86ce6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 1665731656335651744}
   - component: {fileID: 2366243296870644723}
   - component: {fileID: 2561276718802567993}
+  - component: {fileID: 8000868561157570745}
   m_Layer: 10
   m_Name: Cablehead Wall Female V1
   m_TagString: Untagged
@@ -234,6 +235,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &8000868561157570745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3927007697132187845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984b4a7120326864eb5db6c689b3cf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConnectionColor_: 0
+  collorRenderer: {fileID: 2530108910005531407}
 --- !u!1 &7674894574026643438
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class ElevatorManager : MonoBehaviour
 
     public void SetDestination(int story_)
     {
-        if(!isMoving)
+        if(!isMoving && story != story_)
         {
             destinationDoors[story - 1].SetBool("Open", false);
             story = story_;

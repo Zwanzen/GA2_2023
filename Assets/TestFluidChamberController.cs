@@ -11,9 +11,9 @@ public class TestFluidChamberController : MonoBehaviour
     public Transform TargetLocation;
     public TextMeshProUGUI FilledText;
     public PhysicsGrabber player;
-    
-    
-    private float filledAmount = 0;
+
+    private int maxAmount = 100;
+    private int filledAmount = 0;
     private bool hasCapsule = false;
 
     private Transform Capsule;
@@ -34,8 +34,8 @@ public class TestFluidChamberController : MonoBehaviour
 
     private void UpdateFillText()
     {
-        int roundedFillAmount = (int)Math.Round(filledAmount);
-        FilledText.text = String.Format("{0}% ", roundedFillAmount);
+        //int roundedFillAmount = (int)Math.Round(filledAmount);
+        FilledText.text = String.Format("{0}% ", filledAmount);
     }
 
     private void GrabCapsule(Collider capsule_)
@@ -96,7 +96,7 @@ public class TestFluidChamberController : MonoBehaviour
                     drainAmount = FCapsule.FillAmount;
                 }
                 FCapsule.EmptyCapsule(drainAmount);
-                filledAmount += drainAmount/5;
+                //filledAmount += drainAmount/5;
                 UpdateFillText();
             }
         }

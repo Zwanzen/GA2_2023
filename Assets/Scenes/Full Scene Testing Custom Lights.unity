@@ -8458,16 +8458,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: -4685799804375638248, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4685799804375638248, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.15
-      objectReference: {fileID: 0}
     - target: {fileID: -4662641448428575636, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Type
@@ -8657,11 +8647,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -4123014385140127706, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_Name
-      value: Elevator Shaft Door Bottom
       objectReference: {fileID: 0}
     - target: {fileID: -4101838630620710777, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
@@ -9483,11 +9468,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: -1451327804455647886, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_Name
-      value: Elevator Shaft Door Bottom
-      objectReference: {fileID: 0}
     - target: {fileID: -1450754849694829157, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Type
@@ -9522,11 +9502,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Shadows.m_Type
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -1436716762761219090, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_Name
-      value: Elevator Shaft Door Bottom
       objectReference: {fileID: 0}
     - target: {fileID: -1429149104563473383, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
@@ -10892,11 +10867,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2235317502479493942, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_Name
-      value: Elevator Shaft Door Top
-      objectReference: {fileID: 0}
     - target: {fileID: 2240485261363342984, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Layer
@@ -11912,11 +11882,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 5790859766985712206, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_Name
-      value: Elevator Shaft Door Top
-      objectReference: {fileID: 0}
     - target: {fileID: 5870318611079512616, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Type
@@ -12251,11 +12216,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Shadows.m_Type
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6781497203901031618, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.15
       objectReference: {fileID: 0}
     - target: {fileID: 6796784346965712850, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
@@ -12607,16 +12567,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7886944057291383690, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7886944057291383690, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 7906411457026561069, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       propertyPath: m_Layer
@@ -12836,11 +12786,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Shadows.m_Type
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8642256330248934235, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      propertyPath: m_Name
-      value: Elevator Shaft Door Top
       objectReference: {fileID: 0}
     - target: {fileID: 8650349671761435178, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
@@ -13165,7 +13110,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 698989319}
-<<<<<<< Updated upstream
     - targetCorrespondingSourceObject: {fileID: -1301948946148473791, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       insertIndex: -1
@@ -13186,20 +13130,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1558210489}
-=======
-    - targetCorrespondingSourceObject: {fileID: -1319006344900500313, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1124943265}
-    - targetCorrespondingSourceObject: {fileID: -4890823475492423887, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1124943264}
-    - targetCorrespondingSourceObject: {fileID: -939608344701198329, guid: 730a27ad57d978e499f8d01d4ced362c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1124943263}
->>>>>>> Stashed changes
     - targetCorrespondingSourceObject: {fileID: 5744086561467953114, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       insertIndex: -1
@@ -14328,87 +14258,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 943980675}
   m_SourcePrefab: {fileID: 100100000, guid: c284beb003b41104587d0a37a760249d, type: 3}
---- !u!1 &1124943260 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -939608344701198329, guid: 730a27ad57d978e499f8d01d4ced362c,
-    type: 3}
-  m_PrefabInstance: {fileID: 967536523}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1124943261 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -4890823475492423887, guid: 730a27ad57d978e499f8d01d4ced362c,
-    type: 3}
-  m_PrefabInstance: {fileID: 967536523}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1124943262 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -1319006344900500313, guid: 730a27ad57d978e499f8d01d4ced362c,
-    type: 3}
-  m_PrefabInstance: {fileID: 967536523}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1124943263
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124943260}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c1cea44e32515a54fa2bcea250709b6a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!95 &1124943264
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124943261}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c1cea44e32515a54fa2bcea250709b6a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!95 &1124943265
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1124943262}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c1cea44e32515a54fa2bcea250709b6a, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!64 &1127209201
 MeshCollider:
   m_ObjectHideFlags: 0

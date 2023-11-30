@@ -57,6 +57,7 @@ public class WallConnecter : MonoBehaviour
         rb = Cable.GetComponent<Rigidbody>();
         rb.isKinematic = true;
         HasCable = true;
+        rb.GetComponent<Cable>().connector = this;
 
         if(Cable.GetComponent<ConnectionColor>().ConnectionColor_ == wallConnectorColor)
         {
@@ -66,6 +67,7 @@ public class WallConnecter : MonoBehaviour
 
     public void RemoveCable()
     {
+        rb.GetComponent<Cable>().connector = null;
         rb.isKinematic = false;
         HasCable = false;
         Cable = null;

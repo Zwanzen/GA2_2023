@@ -12,9 +12,11 @@ public class TestFluidChamberController : MonoBehaviour
     public TextMeshProUGUI FilledText;
     public PhysicsGrabber player;
 
-    private int maxAmount = 100;
-    private int filledAmount = 0;
-    private bool hasCapsule = false;
+    public FluidCapsule.FluidType fluidType = FluidCapsule.FluidType.Blue;
+
+
+    public bool hasCapsule = false;
+    public bool IsReady = false;
 
     private Transform Capsule;
     private FluidCapsule FCapsule;
@@ -26,17 +28,6 @@ public class TestFluidChamberController : MonoBehaviour
     bool isReady = false;
 
     bool canTake;
-
-    private void Start()
-    {
-        UpdateFillText();
-    }
-
-    private void UpdateFillText()
-    {
-        //int roundedFillAmount = (int)Math.Round(filledAmount);
-        FilledText.text = String.Format("{0}% ", filledAmount);
-    }
 
     private void GrabCapsule(Collider capsule_)
     {
@@ -84,21 +75,20 @@ public class TestFluidChamberController : MonoBehaviour
 
         if(hasCapsule && canTake)
         {
-            timer += Time.deltaTime;
-            Capsule.transform.position = Vector3.Lerp(startPos, TargetLocation.position, timer / animDuration);
-            Capsule.rotation = Quaternion.Lerp(startRot, TargetLocation.rotation, timer / animDuration);
-
-            if(timer > animDuration && FCapsule.FillAmount > 0)
+            if(timer < 1f)
             {
-                var drainAmount = Time.deltaTime * 5;
-                if (FCapsule.FillAmount < drainAmount)
-                {
-                    drainAmount = FCapsule.FillAmount;
-                }
-                FCapsule.EmptyCapsule(drainAmount);
-                //filledAmount += drainAmount/5;
-                UpdateFillText();
+                timer += Time.deltaTime;
+                Capsule.transform.position = Vector3.Lerp(startPos, TargetLocation.position, timer / animDuration);
+                Capsule.rotation = Quaternion.Lerp(startRot, TargetLocation.rotation, timer / animDuration);
             }
+            else
+            {
+                if(FCapsule.fluidType == fluidType)
+                {
+                    isReady = true;
+                }
+            }
+
         }
         else
         {

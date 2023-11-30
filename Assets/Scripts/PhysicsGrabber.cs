@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +39,7 @@ public class PhysicsGrabber : MonoBehaviour
     private SpringJoint joint;
     private Vector3 grabOffset = Vector3.zero;
 
-    private float ConnectorCheckDist = 0.2f;
+    private float ConnectorCheckDist = 0.08f;
     private float ConnectorDist;
     private WallConnecter ClosestConnector;
     private WallConnecter ClosestConnector_;
@@ -189,7 +190,7 @@ public class PhysicsGrabber : MonoBehaviour
             if(rb.tag != "Cable")
             {
 
-                HoldPos = transform.position + transform.forward * GrabLenght;
+                HoldPos = transform.position + transform.forward * GrabLenght/1.5f;
                 joint.connectedAnchor = HoldPos;
 
                 //Rotate the object to align.
@@ -201,13 +202,13 @@ public class PhysicsGrabber : MonoBehaviour
             else
             {
                 RaycastHit hit;
-                if(Physics.Raycast(transform.position, transform.forward, out hit, GrabLenght, CablebLayer))
+                if(Physics.Raycast(transform.position, transform.forward, out hit, GrabLenght/1.5f, CablebLayer))
                 {
                     HoldPos = hit.point - transform.forward * 0.3f;
                 }
                 else
                 {
-                    HoldPos = transform.position + transform.forward * GrabLenght;
+                    HoldPos = transform.position + transform.forward * (GrabLenght/1.5f);
                 }
 
                 CheckForCableConnections();
@@ -228,7 +229,7 @@ public class PhysicsGrabber : MonoBehaviour
                     joint.connectedAnchor = HoldPos;
                 }
 
-
+                Debug.Log(ClosestConnector);
             }
 
             //Because unity has some bugs, i cant let the object you're holding stand still, so i apply some movement at all times.
@@ -254,6 +255,11 @@ public class PhysicsGrabber : MonoBehaviour
                     }
                 }
 
+                if(ClosestConnector == wallConnecter)
+                {
+                    ConnectorDist = dist;
+                }
+
                 if (ClosestConnector_ == null)
                 {
                     ClosestConnector_ = wallConnecter;
@@ -268,6 +274,10 @@ public class PhysicsGrabber : MonoBehaviour
         }
         else
         {
+            if (cableBeingHeld.IsConnected)
+            {
+                cableBeingHeld.connector.RemoveCable();
+            }
             if(ClosestConnector != null)
             {
                 ClosestConnector.RemoveCable();
@@ -289,7 +299,8 @@ public class PhysicsGrabber : MonoBehaviour
             cableBeingHeld.IsGrabbed = false;
             cableBeingHeld = null;
         }
-
+        ClosestConnector = null;
+        ClosestConnector_ = null;
     }
 
     private void AddSpringJoint(Transform obj)

@@ -9,6 +9,7 @@ public class Cable : MonoBehaviour
     public bool IsGrabable;
 
     public bool IsGrabbed = false;
+    public WallConnecter connector;
     private Rigidbody rb;
 
     private void Start()

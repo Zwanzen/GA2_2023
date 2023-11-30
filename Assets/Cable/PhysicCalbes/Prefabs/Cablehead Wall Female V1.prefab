@@ -187,6 +187,7 @@ MonoBehaviour:
   Cable: {fileID: 0}
   cableOffset: {fileID: 3819600906620097392}
   HasCable: 0
+  IsPowered: 0
 --- !u!135 &2366243296870644723
 SphereCollider:
   m_ObjectHideFlags: 0

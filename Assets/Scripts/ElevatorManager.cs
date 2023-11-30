@@ -25,6 +25,7 @@ public class ElevatorManager : MonoBehaviour
     private float t;
     private Animator anim;
 
+    private float elevatorTimer = 0f;
 
     public void SetDestination(int story_)
     {
@@ -62,20 +63,17 @@ public class ElevatorManager : MonoBehaviour
             {
                 anim.SetBool("Open", true);
                 destinationDoors[story - 1].SetBool("Open", true);
+                elevatorTimer = 0f;
             }
         }
     }
 
     void MoveTowardsTarget()
     {
-        // Calculate the direction towards the target position
-        Vector3 direction = destination - elevator.position;
-
-        // Normalize the direction to get a unit vector
-        direction.Normalize();
+        elevatorTimer += Time.deltaTime * elevatorSpeed;
 
         // Move the transform towards the target position at the specified speed
-        elevator.Translate(direction * elevatorSpeed * Time.deltaTime);
+        elevator.position = Vector3.MoveTowards(previousDestination, destination, elevatorTimer);
     }
 
     public void ReadyToMove()
@@ -90,9 +88,9 @@ public class ElevatorManager : MonoBehaviour
 
     private void Start()
     {
-        previousDestination = transform.position;
-        destination = transform.position;
         anim = GetComponent<Animator>();
+        previousDestination = transform.position;
+        destination = elevatorDestinations[story - 1].position;
     }
 
     private void OnTriggerEnter(Collider other)

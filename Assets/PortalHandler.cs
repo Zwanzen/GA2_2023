@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,7 @@ public class PortalHandler : MonoBehaviour
     public MeshRenderer ReadySignal;
     [SerializeField]
     private Material readyMaterial;
+    [SerializeField] private MMF_Player readyFeedback;
 
     [SerializeField]
     private MeshRenderer fluidSignal;
@@ -46,9 +48,9 @@ public class PortalHandler : MonoBehaviour
 
     private void CheckIfReady()
     {
-        bool1 = fluid1.IsReady;
-        bool2 = fluid2.IsReady;
-        bool3 = fluid3.IsReady;
+        bool1 = fluid1.hasCapsule;
+        bool2 = fluid2.hasCapsule;
+        bool3 = fluid3.hasCapsule;
         bool4 = power.HasPower;
         bool5 = destination.hasDestination;
 
@@ -56,6 +58,7 @@ public class PortalHandler : MonoBehaviour
         {
             IsReady = true;
             ReadySignal.material = readyMaterial;
+            readyFeedback.PlayFeedbacks();
         }
 
         if(bool1 && bool2 && bool3)

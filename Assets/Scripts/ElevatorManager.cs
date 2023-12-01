@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,10 @@ public class ElevatorManager : MonoBehaviour
     private Transform[] elevatorDestinations;
     [SerializeField]
     private Animator[] destinationDoors;
+    [SerializeField]
+    private MMF_Player[] destinationFeedbacks;
+    [SerializeField]
+    private MMF_Player elevatorFeedback;
 
     private Vector3 previousDestination;
     private Vector3 destination;
@@ -32,6 +37,7 @@ public class ElevatorManager : MonoBehaviour
         if(!isMoving && story != story_)
         {
             destinationDoors[story - 1].SetBool("Open", false);
+            destinationFeedbacks[story - 1].PlayFeedbacks();
             story = story_;
             destination = elevatorDestinations[story - 1].position;
             previousDestination = elevator.position;
@@ -46,6 +52,10 @@ public class ElevatorManager : MonoBehaviour
         if (!canMove)
         {
             t += Time.deltaTime * 1f;
+            if (anim.GetBool("Open"))
+            {
+                elevatorFeedback.PlayFeedbacks();
+            }
             anim.SetBool("Open", false);
             if (t > 1f)
             {
@@ -62,6 +72,11 @@ public class ElevatorManager : MonoBehaviour
             }
             else
             {
+                if (!anim.GetBool("Open"))
+                {
+                    elevatorFeedback.PlayFeedbacks();
+                    destinationFeedbacks[story - 1].PlayFeedbacks();
+                }
                 anim.SetBool("Open", true);
                 destinationDoors[story - 1].SetBool("Open", true);
                 elevatorTimer = 0f;

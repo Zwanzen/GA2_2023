@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
+using MoreMountains.Feedbacks;
+
 
 public class PhysicsGrabber : MonoBehaviour
 {
@@ -45,6 +41,10 @@ public class PhysicsGrabber : MonoBehaviour
     private WallConnecter ClosestConnector;
     private WallConnecter ClosestConnector_;
 
+    [SerializeField]
+    private MMF_Player grabFeedback;
+
+
     private void Start()
     {
         outlineComponent = GetComponent<Outline>();
@@ -67,10 +67,13 @@ public class PhysicsGrabber : MonoBehaviour
             if (lookedAtTransform.tag != "Interactable")
             {
                 Grab(lookedAtTransform);
+                grabFeedback.PlayFeedbacks();
             }
             else
             {
-                lookedAtTransform.GetComponent<InteractableManager>().Interact();
+                var act = lookedAtTransform.GetComponent<InteractableManager>();
+                act.Interact();
+                
             }
         }
 
@@ -230,7 +233,6 @@ public class PhysicsGrabber : MonoBehaviour
                     joint.connectedAnchor = HoldPos;
                 }
 
-                Debug.Log(ClosestConnector);
             }
 
             //Because unity has some bugs, i cant let the object you're holding stand still, so i apply some movement at all times.

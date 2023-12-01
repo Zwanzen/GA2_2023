@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Text.RegularExpressions;
 using System;
+using MoreMountains.Feedbacks;
 
 public class TestFluidChamberController : MonoBehaviour
 {
@@ -34,6 +35,8 @@ public class TestFluidChamberController : MonoBehaviour
     bool isReady = false;
 
     bool canTake;
+    [SerializeField]
+    private MMF_Player readyFeedback;
 
     private void GrabCapsule(Collider capsule_)
     {
@@ -91,11 +94,13 @@ public class TestFluidChamberController : MonoBehaviour
             {
                 if(FCapsule.fluid == fluidColor)
                 {
-                    IsReady = true;
-                }
-                else
-                {
-                    IsReady = false;
+                    if (!isReady)
+                    {
+                        readyFeedback.PlayFeedbacks();
+                        indicator.material = onMaterial;
+                        isReady = true;
+                    }
+                    
                 }
             }
 
@@ -116,14 +121,6 @@ public class TestFluidChamberController : MonoBehaviour
     {
         Process();
 
-        if(IsReady)
-        {
-            indicator.material = onMaterial;
-        }
-        else
-        {
-            indicator.material = OffMaterial;
-        }
     }
 
     private void OnTriggerStay(Collider other)

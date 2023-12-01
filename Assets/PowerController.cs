@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,12 @@ public class PowerController : MonoBehaviour
 
     [SerializeField]
     private WallConnecter[] wallConnecters;
+    [SerializeField]
+    MMF_Player feedback;
 
     private void Update()
     {
-        if(!POWER)
+        if(!POWER && !HasPower)
         {
             bool power = true;
             foreach (WallConnecter con in wallConnecters)
@@ -32,11 +35,13 @@ public class PowerController : MonoBehaviour
 
             if (power)
             {
+                feedback.PlayFeedbacks();
                 HasPower = true;
             }
         }
         else
         {
+
             HasPower = true;
         }
 

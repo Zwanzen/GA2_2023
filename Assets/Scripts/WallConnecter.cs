@@ -1,3 +1,4 @@
+using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -18,6 +19,9 @@ public class WallConnecter : MonoBehaviour
     private float cableSpeed = 5f;
     private Vector3 oldPos;
     private quaternion startRot;
+
+    [SerializeField]
+    private MMF_Player connectFeedback;
 
     private void Start()
     {
@@ -58,6 +62,7 @@ public class WallConnecter : MonoBehaviour
         rb.isKinematic = true;
         HasCable = true;
         rb.GetComponent<Cable>().connector = this;
+        connectFeedback.PlayFeedbacks();
 
         if(Cable.GetComponent<ConnectionColor>().ConnectionColor_ == wallConnectorColor)
         {

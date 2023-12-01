@@ -31,6 +31,8 @@ public class PortalHandler : MonoBehaviour
 
     [SerializeField]
     private Animator ButtonAnim;
+    [SerializeField]
+    private PortalAnimationHandler p;
 
     private void Update()
     {
@@ -78,7 +80,7 @@ public class PortalHandler : MonoBehaviour
 
         if(IsReady)
         {
-            //Start portal sequence
+            p.ButtonPressed();
         }
     }
 }

@@ -11852,6 +11852,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Purple Portal (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2637155148044043768, guid: 1795697374897ab4e95567708a0baa83,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5036414895664517160, guid: 1795697374897ab4e95567708a0baa83,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
@@ -11976,6 +11981,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[3].m_Overridden
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7688610282543210864, guid: 1795697374897ab4e95567708a0baa83,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21092,6 +21102,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1167125782}
+    - targetCorrespondingSourceObject: {fileID: -2722040109429237861, guid: 730a27ad57d978e499f8d01d4ced362c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6501331928358172692}
     - targetCorrespondingSourceObject: {fileID: -5581935427684440743, guid: 730a27ad57d978e499f8d01d4ced362c,
         type: 3}
       insertIndex: -1
@@ -23285,17 +23299,17 @@ PrefabInstance:
     - target: {fileID: 400394711003689918, guid: b24ef64104f9ce2409166faeef6aec79,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.x
-      value: 0.52910674
+      value: 1.2155683
       objectReference: {fileID: 0}
     - target: {fileID: 400394711003689918, guid: b24ef64104f9ce2409166faeef6aec79,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.y
-      value: 5.2164745
+      value: 11.984314
       objectReference: {fileID: 0}
     - target: {fileID: 400394711003689918, guid: b24ef64104f9ce2409166faeef6aec79,
         type: 3}
       propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.z
-      value: 0.3823592
+      value: 0.87843096
       objectReference: {fileID: 0}
     - target: {fileID: 400394711003689918, guid: b24ef64104f9ce2409166faeef6aec79,
         type: 3}
@@ -23311,6 +23325,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PortalLaser_VFXGraph
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885572734590061251, guid: b24ef64104f9ce2409166faeef6aec79,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4660715651145004165, guid: b24ef64104f9ce2409166faeef6aec79,
         type: 3}
@@ -23360,6 +23379,11 @@ PrefabInstance:
     - target: {fileID: 4660715651145004165, guid: b24ef64104f9ce2409166faeef6aec79,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8525143482544458564, guid: b24ef64104f9ce2409166faeef6aec79,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -25634,6 +25658,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 9036701064170661135, guid: 730a27ad57d978e499f8d01d4ced362c, type: 3}
+--- !u!1 &1426436487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2637155148044043768, guid: 1795697374897ab4e95567708a0baa83,
+    type: 3}
+  m_PrefabInstance: {fileID: 780810357}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1426613151
 GameObject:
   m_ObjectHideFlags: 0
@@ -30901,6 +30931,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1852036958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2885572734590061251, guid: b24ef64104f9ce2409166faeef6aec79,
+    type: 3}
+  m_PrefabInstance: {fileID: 1190858474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1855805439
 GameObject:
   m_ObjectHideFlags: 0
@@ -35292,6 +35328,21 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 967536523}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6501331928358172692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6501331928358172688}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae26efa5850b2cb43bdb88cef299e9a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeDelay: 3
+  laser: {fileID: 1852036958}
+  puddle: {fileID: 1426436487}
 --- !u!1 &6604806112045122036 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2618565923859321217, guid: 730a27ad57d978e499f8d01d4ced362c,
@@ -35543,6 +35594,7 @@ MonoBehaviour:
   powerSignal: {fileID: 2064279702}
   destinationSignal: {fileID: 716870218}
   ButtonAnim: {fileID: 228357332}
+  p: {fileID: 6501331928358172692}
 --- !u!1 &8208752692116303182 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -1014619344862919995, guid: 730a27ad57d978e499f8d01d4ced362c,

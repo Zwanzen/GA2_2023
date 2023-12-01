@@ -13,6 +13,12 @@ public class TestFluidChamberController : MonoBehaviour
     public PhysicsGrabber player;
 
     public FluidCapsule.FluidType fluidColor = FluidCapsule.FluidType.Blue;
+    [SerializeField]
+    private MeshRenderer indicator;
+    [SerializeField]
+    private Material onMaterial;
+    [SerializeField]
+    private Material OffMaterial;
 
 
     public bool hasCapsule = false;
@@ -109,6 +115,15 @@ public class TestFluidChamberController : MonoBehaviour
     private void Update()
     {
         Process();
+
+        if(IsReady)
+        {
+            indicator.material = onMaterial;
+        }
+        else
+        {
+            indicator.material = OffMaterial;
+        }
     }
 
     private void OnTriggerStay(Collider other)

@@ -39,6 +39,7 @@ public class PhysicsGrabber : MonoBehaviour
     private SpringJoint joint;
     private Vector3 grabOffset = Vector3.zero;
 
+    [SerializeField]
     private float ConnectorCheckDist = 0.08f;
     private float ConnectorDist;
     private WallConnecter ClosestConnector;

@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class FluidCapsule : MonoBehaviour
 {
-
-    public float FillAmount = 100f;
-    public TextMeshProUGUI FillText;
-    public FluidType fluidType = FluidType.Blue;
+    public FluidType fluid = FluidType.Blue;
+    [SerializeField]
+    private MeshRenderer render;
 
     public enum FluidType
     {
@@ -18,16 +17,20 @@ public class FluidCapsule : MonoBehaviour
         Blue
     }
 
-    private void UpdateFillText()
+    private void Start()
     {
-        int roundedFillAmount = (int)Math.Round(FillAmount);
-        FillText.text = String.Format("{0}% ", roundedFillAmount);
-    }
-
-    public void EmptyCapsule(float drainAmount)
-    {
-        FillAmount -= drainAmount;
-        UpdateFillText();
+        if(fluid == FluidType.Red)
+        {
+            render.material.color = Color.red;
+        }
+        else if(fluid == FluidType.Green)
+        {
+            render.material.color = Color.green;
+        }
+        else
+        {
+            render.material.color = Color.blue;
+        }
     }
 
 }

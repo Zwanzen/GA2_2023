@@ -12,18 +12,18 @@ public class TestFluidChamberController : MonoBehaviour
     public TextMeshProUGUI FilledText;
     public PhysicsGrabber player;
 
-    public FluidCapsule.FluidType fluidType = FluidCapsule.FluidType.Blue;
+    public FluidCapsule.FluidType fluidColor = FluidCapsule.FluidType.Blue;
 
 
     public bool hasCapsule = false;
     public bool IsReady = false;
 
     private Transform Capsule;
-    private FluidCapsule FCapsule;
+    public FluidCapsule FCapsule;
     private Vector3 startPos;
     private Quaternion startRot;
 
-    private float animDuration = 0.5f;
+    private float animDuration = 0.2f;
     float timer = 0;
     bool isReady = false;
 
@@ -83,9 +83,13 @@ public class TestFluidChamberController : MonoBehaviour
             }
             else
             {
-                if(FCapsule.fluidType == fluidType)
+                if(FCapsule.fluid == fluidColor)
                 {
-                    isReady = true;
+                    IsReady = true;
+                }
+                else
+                {
+                    IsReady = false;
                 }
             }
 

@@ -9,6 +9,7 @@ TagManager:
   - Interactable
   - ElevatorManager
   - Ignore
+  - MainComputer
   layers:
   - Default
   - TransparentFX

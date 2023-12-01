@@ -1,14 +1,17 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Interactable")]
+[CreateAssetMenu(menuName = "Interactable/Elevator Button")]
 public class ElevatorButton : Interactable
 {
 
-    [SerializeField] private int story;
+    [SerializeField] 
+    private int story;
+    private ElevatorManager manager;
 
     public override void OnActivate()
     {
-        GameObject.FindGameObjectWithTag("ElevatorManager").GetComponent<ElevatorManager>().SetDestination(story);
+        manager = GameObject.FindGameObjectWithTag("ElevatorManager").GetComponent<ElevatorManager>();
+        manager.SetDestination(story);
     }
 
 }
